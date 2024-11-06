@@ -6,6 +6,7 @@ function DataProvide({ children }) {
 	const [html, setHtml] = useState("");
 	const [js, setJs] = useState("");
 	const [css, setCss] = useState("");
+
 	return (
 		<DataConst.Provider
 			value={{

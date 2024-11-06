@@ -15,8 +15,8 @@ const Result = () => {
 
     const srcCode = `
         <html>
-            <body>${html}</body>
             <style>${css}</style>
+            <body>${html}</body>
             <script>${js}</script>
         </html>
     `
