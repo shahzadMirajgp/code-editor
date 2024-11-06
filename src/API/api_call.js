@@ -6,8 +6,8 @@ export const fetchCss = async (cssUrl) => {
   try {
     const response = await fetch(cssUrl);
     if (response.ok) {
-        const cssText = await response.text(); // Convert response to text
-        return cssText
+      const cssText = await response.text(); // Convert response to text
+      return cssText;
     } else {
       console.error("Failed to fetch the CSS file:", response.status);
     }

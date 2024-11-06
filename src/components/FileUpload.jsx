@@ -1,6 +1,6 @@
 import React from "react";
 
-const FileUpload = ({ acceptType='.html', setHtml }) => {
+const FileUpload = ({ acceptType = ".html", setHtml }) => {
   const handleFileUpload = (event) => {
     const file = event.target.files?.[0];
     if (file) {
