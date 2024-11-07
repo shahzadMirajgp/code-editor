@@ -45,14 +45,14 @@ function Code() {
         icon="*"
         color="#0EBEFF"
       />
-      <Editor
+      {/* <Editor
         language="javascript"
         heading="JS"
         value={js}
         onChange={jsHandler}
         icon="( )"
         color="#FCD000"
-      />
+      /> */}
     </Container>
   );
 }

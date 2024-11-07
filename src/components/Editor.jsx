@@ -9,6 +9,7 @@ import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/css/css";
 import "../App.css";
 import { useState } from "react";
+import { css_beautify, html_beautify, js_beautify } from "js-beautify";
 
 // import { Typography, Button } from "@mui/material";
 const Head = styled(Box)`
@@ -24,8 +25,8 @@ const Header = styled(Box)`
   font-weight: 700;
 `;
 const Container = styled(Box)`
-  flex-grow: 1;
-  flex-basic: 0;
+  width: 50%;
+  // flex-basic: 0;
   display: flex;
   flex-direction: column;
   padding: 0 8px 8px;
@@ -36,8 +37,21 @@ function Editor({ heading, language, value, onChange, icon, color }) {
   const handleChange = (editor, data, value) => {
     onChange(value);
   };
+  const options = { indent_size: 2, space_in_empty_paren: true };
+  const getValue = (value) => {
+    let dataJson = JSON.stringify(value);
+    let dataFormated = value;
+    if (language == "xml") {
+      dataFormated = html_beautify(value, options);
+    } else if (language == "css") {
+      dataFormated = css_beautify(value, options);
+    } else {
+      dataFormated = js_beautify(dataJson, options);
+    }
+    return dataFormated;
+  };
   return (
-    <Container style={open ? null : { flexGrow: 0 }}>
+    <Container>
       <Header>
         <Head>
           <Box
@@ -66,7 +80,7 @@ function Editor({ heading, language, value, onChange, icon, color }) {
       </Header>
       <ControlledEditor
         onBeforeChange={handleChange}
-        value={value}
+        value={getValue(value)}
         className="controlled-editor"
         options={{
           lineWrapping: true,
