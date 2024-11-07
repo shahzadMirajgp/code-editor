@@ -2,6 +2,13 @@ import Editor from "./Editor";
 import { Box, styled } from "@mui/material";
 import { useContext } from "react";
 import { DataConst } from "../context/DataProvide";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectorContent,
+  setCss,
+  setHtml,
+  setJs,
+} from "../reduxToolkit/reducers/contentReducer/contentReducer";
 const Container = styled(Box)`
   background-color: #060606;
   height: 50vh;
@@ -9,15 +16,24 @@ const Container = styled(Box)`
 `;
 
 function Code() {
-  const { html, css, js, setHtml, setCss, setJs } = useContext(DataConst);
-
+  const { css, html, js } = useSelector(selectorContent);
+  const dispatch = useDispatch();
+  const htmlHandler = (html) => {
+    dispatch(setHtml(html));
+  };
+  const cssHandler = (css) => {
+    dispatch(setCss(css));
+  };
+  const jsHandler = (js) => {
+    dispatch(setJs(js));
+  };
   return (
     <Container>
       <Editor
         language="xml"
         heading="HTML"
         value={html}
-        onChange={setHtml}
+        onChange={htmlHandler}
         icon="/"
         color="#FF3C41"
       />
@@ -25,7 +41,7 @@ function Code() {
         language="css"
         heading="CSS"
         value={css}
-        onChange={setCss}
+        onChange={cssHandler}
         icon="*"
         color="#0EBEFF"
       />
@@ -33,7 +49,7 @@ function Code() {
         language="javascript"
         heading="JS"
         value={js}
-        onChange={setJs}
+        onChange={jsHandler}
         icon="( )"
         color="#FCD000"
       />

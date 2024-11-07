@@ -1,13 +1,17 @@
-import "./App.css";
 import Home from "./components/Home";
+import { Provider } from "react-redux";
 import DataProvide from "./context/DataProvide";
+import { Store } from "./reduxToolkit/Store";
+import "./App.css";
 function App() {
   return (
-    <div className="App">
-      <DataProvide>
-        <Home />
-      </DataProvide>
-    </div>
+    <Provider store={Store}>
+      <div className="App">
+        <DataProvide>
+          <Home />
+        </DataProvide>
+      </div>
+    </Provider>
   );
 }
 

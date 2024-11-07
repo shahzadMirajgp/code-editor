@@ -5,20 +5,29 @@ import { useContext } from "react";
 import { DataConst } from "../context/DataProvide";
 import { fetchCss } from "../API/api_call";
 import FileUpload from "./FileUpload";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectorContent,
+  setCss,
+  setHtml,
+} from "../reduxToolkit/reducers/contentReducer/contentReducer";
 const Contain = styled(AppBar)`
   background: #060606;
   height: 9vh;
 `;
 
 function Header() {
-  const { html, css, js, setHtml, setCss, setJs } = useContext(DataConst);
-
+  const { css, html, js } = useSelector(selectorContent);
+  const dispatch = useDispatch();
   async function fetchData() {
     const cssData = await fetchCss(
       "https://gallopade.blob.core.windows.net/$web/3C973977C0914E91B02163B0F77A70D9.css"
     );
-    setCss(cssData);
+    dispatch(setCss(cssData));
   }
+  const htmlHandler = (html) => {
+    dispatch(setHtml(html));
+  };
 
   return (
     <Contain position="static">
@@ -34,11 +43,20 @@ function Header() {
           Export Code{" "}
         </Button>
 
-        <FileUpload setHtml={setHtml} />
+        <FileUpload
+          setHtml={(html) => {
+            htmlHandler(html);
+          }}
+        />
 
         <Button onClick={() => fetchData()}>Fetch CSS </Button>
 
-        <FileUpload setHtml={setCss} acceptType={".css"} />
+        <FileUpload
+          setHtml={(html) => {
+            htmlHandler(html);
+          }}
+          acceptType={".css"}
+        />
       </Toolbar>
     </Contain>
   );

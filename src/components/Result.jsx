@@ -3,6 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import { DataConst } from "../context/DataProvide";
 
 import { Box, styled } from "@mui/material";
+import { selectorContent } from "../reduxToolkit/reducers/contentReducer/contentReducer";
+import { useSelector } from "react-redux";
 
 const Container = styled(Box)`
   height: 41vh;
@@ -10,8 +12,7 @@ const Container = styled(Box)`
 
 const Result = () => {
   const [src, setSrc] = useState("");
-  const { html, css, js } = useContext(DataConst);
-
+  const { css, html, js } = useSelector(selectorContent);
   const srcCode = `
         <html>
             <style>${css}</style>
